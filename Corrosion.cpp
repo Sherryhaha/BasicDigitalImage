@@ -6,21 +6,7 @@
 
 //计算腐蚀指定位置的像素值
 int corrosion::Pixelcorrosion(Mat &src, int *tmp, int l, int x, int y) {
-    int max = 0;
-    x -= l / 2;
-    y -= l / 2;
-    int i, j;
-    for (i = 0; i < l; i++) {
-        for (j = 0; j < l; j++) {
-            if (tmp[i * l + j] && src.at<uchar>(y + i, x + j) > max) {
-                max = src.at<uchar>(y + i, x + j);
-            }
-        }
-    }
-    return max;
-}
-//计算膨胀指定位置的像素值
-int corrosion::Pixelexpansion(Mat&src,int*tmp,int l,int x,int y){
+
     int min = 256;
     x -= l / 2;
     y -= l / 2;
@@ -33,6 +19,21 @@ int corrosion::Pixelexpansion(Mat&src,int*tmp,int l,int x,int y){
         }
     }
     return min;
+}
+//计算膨胀指定位置的像素值
+int corrosion::Pixelexpansion(Mat&src,int*tmp,int l,int x,int y){
+    int max = 0;
+    x -= l / 2;
+    y -= l / 2;
+    int i, j;
+    for (i = 0; i < l; i++) {
+        for (j = 0; j < l; j++) {
+            if (tmp[i * l + j] && src.at<uchar>(y + i, x + j) > max) {
+                max = src.at<uchar>(y + i, x + j);
+            }
+        }
+    }
+    return max;
 }
 
 void corrosion::corrosionFunc(Mat &src, Mat &dst, int *tmp, int l) {
